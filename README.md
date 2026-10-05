@@ -41,13 +41,20 @@ Inspect:
 
 bash
 docker ps
+
 terraform state list
+terraform state list 2>&1 | tee logs/state.log
+
 terraform state show docker_container.nginx
+terraform state show docker_container.nginx 2>&1 | tee -a logs/state.log
 
 Clean up:
 
 bash
 terraform destroy    # type yes
+terraform destroy -auto-approve 2>&1 | tee logs/destroy.log
+
+docker ps -a
 Windows Note
 
 If you see a Docker connection error, uncomment this line in the provider block:
